@@ -5,11 +5,12 @@
     margin: auto;
     height: 8.5in; /* Width for Letter size */
     width: 11in; /* Height for Letter size */
-    background-color: antiquewhite;
+    /* background-color: antiquewhite; */
     font-family: 'Tinos', serif;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-size: cover;
 }
 
 .header{
@@ -19,10 +20,10 @@
     align-items: center;
 }
 .logo{
-    width: 150px;
     height: 150px;
+    width: 150px;
     border-radius: 50%;
-    background-size: auto; 
+    background-size: contain; 
     background-position: center;
     background-position: center center; 
     background-repeat: no-repeat; 

@@ -38,7 +38,7 @@ institutionSchema.statics.signup = async function(name, email, password) {
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    const institution = await this.create({email, password: hash})
+    const institution = await this.create({name, email, password: hash})
 
     return institution
 }
@@ -62,4 +62,4 @@ institutionSchema.statics.login = async function(email, password) {
     return institution
   }
   
-  module.exports = mongoose.model("User", institutionSchema)
+  module.exports = mongoose.model("Institution", institutionSchema)

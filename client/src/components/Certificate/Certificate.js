@@ -1,6 +1,23 @@
 import styles from "./Certificate.module.css"
+import { toPng } from 'html-to-image';
+import { useRef } from "react";
 
 const Certificate = (props) => {
+    const elementRef = useRef(null)
+    const downloadCertificate = async () => {
+      console.log(elementRef)
+      toPng(elementRef.current, { cacheBust: false })
+        .then((dataUrl) => {
+          const link = document.createElement("a");
+          link.download = "certificate.png";
+          link.href = dataUrl;
+          link.click();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+  
     return (
         <div className={styles.container} style={{backgroundImage: `url("${props.templateURL}")`}}>
             <div className={styles.header}>
@@ -17,7 +34,7 @@ const Certificate = (props) => {
                     <img className={styles.qr} src={props.qr}/>
                 </div>
                 <div className={styles.right}>
-                    <img className={styles.signature} src={props.signature}/>
+                    <img className={styles.signature} src={props.signatureURL}/>
                     <div className={styles.signerDetails}>
                         <div className={styles.signatory}>{props.signerDetails.name}</div>
                         <div className={styles.designation}>{props.signerDetails.designation}</div>

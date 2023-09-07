@@ -10,20 +10,21 @@ const loginInstitution = async (req, res) => {
     try {
         const institution = await Institution.login(email, password)
         const token = createToken(institution._id)
-
-        res.status(200).json({email, token})
+        const name = await institution.name
+        res.status(200).json({ name, email, token, type: "institutions"})
     } catch (error) {
         res.status(400).json({error: error.message})
     }
 }
 
 const signupInstitution = async (req, res) => {
-    const { email, password } = req.body
+    const { name, email, password } = req.body
+    console.log(name)
     try {
-        const institution = await Institution.signup(email, password)
+        const institution = await Institution.signup(name, email, password)
         const token = createToken(institution._id)
 
-        res.status(200).json({email, token})
+        res.status(200).json({name, email, token, type: "institutions"})
     } catch (error) {
         res.status(400).json({error: error.message})
     }
