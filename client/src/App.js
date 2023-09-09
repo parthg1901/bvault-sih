@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthContext } from "./hooks/useAuthContext"
+import { useAdminContext } from './hooks/useAdminContext'
 
 
 // pages & components
@@ -8,10 +9,12 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Navbar from './components/Navbar/Navbar'
 import Certify from './pages/Certify'
+import Admin from './pages/Admin'
 
 
 function App() {
   const { user } = useAuthContext()
+  const { admin } = useAdminContext()
   
   return (
     <div className="App">
@@ -23,18 +26,31 @@ function App() {
               path="/"
               element={<Home/>}
             />
-            <Route 
-              path="/login" 
-              element={!user? <Login/> : <Navigate to="/"/>} 
-            />
-            <Route 
-              path="/signup" 
-              element={!user ? <Signup/> : <Navigate to="/"/>} 
-            />
-            <Route 
-              path="/certify" 
-              element={user ? <Certify/> : <Navigate to="/"/>} 
-            />
+            {!user && (
+              <Route 
+                path="/admin"
+                element={<Admin/>}
+              />
+            )}
+            {!admin ? (
+              <>
+                <Route 
+                  path="/login" 
+                  element={!user? <Login/> : <Navigate to="/"/>} 
+                />
+                <Route 
+                  path="/signup" 
+                  element={!user ? <Signup/> : <Navigate to="/"/>} 
+                />
+              </>
+            ) : ""}
+            {user && (user.verified === "yes" && (
+              <Route 
+                path="/certify" 
+                element={<Certify/>} 
+                />
+            ))}
+            <Route path='*' element={<Navigate to='/' />} />
           </Routes>
         </div>
       </BrowserRouter>

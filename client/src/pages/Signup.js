@@ -1,16 +1,18 @@
 import { useState } from "react"
 import { useSignup } from "../hooks/useSignup"
+import { getBase64 } from "../utils/utils"
 
 const Signup = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [proofImage, setProofImage] = useState('')
   const {signup, error, isLoading} = useSignup()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     
-    await signup(name, email, password, "institutions")
+    await signup(name, email, password, "institutions", proofImage)
   }
 
   return (
@@ -38,7 +40,12 @@ const Signup = () => {
         value={password} 
         required
       />
-
+      <label>Upload Proof Document: (photo)</label>
+      <input
+        type="file"
+        onChange={(e) => getBase64(e.target.files[0], (img) => setProofImage(img))}
+        required
+      />
       <button disabled={isLoading}>Sign up</button>
       {error && <div className="error">{error}</div>}
     </form>

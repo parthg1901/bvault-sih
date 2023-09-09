@@ -11,23 +11,52 @@ const loginInstitution = async (req, res) => {
         const institution = await Institution.login(email, password)
         const token = createToken(institution._id)
         const name = await institution.name
-        res.status(200).json({ name, email, token, type: "institutions"})
+        const verified = await institution.verified
+        res.status(200).json({ name, email, token, type: "institutions", verified})
     } catch (error) {
         res.status(400).json({error: error.message})
     }
 }
 
 const signupInstitution = async (req, res) => {
-    const { name, email, password } = req.body
+    const { name, email, password, proofImage } = req.body
     console.log(name)
+    console.log(password)
     try {
-        const institution = await Institution.signup(name, email, password)
+        const institution = await Institution.signup(name, email, password, proofImage)
         const token = createToken(institution._id)
-
-        res.status(200).json({name, email, token, type: "institutions"})
+        res.status(200).json({name, email, token, type: "institutions", verified: "no"})
     } catch (error) {
         res.status(400).json({error: error.message})
     }
 }
 
-module.exports = { loginInstitution, signupInstitution }
+const checkVerification = async (req, res) => {
+    const { email } = req.body
+    try {
+        const institution = await Institution.findOne({email})
+        const verified = institution.verified
+        res.status(200).json({ verified })
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
+
+const updateVerification = async (req, res) => {
+    const { i_id, verified } = req.body
+    try {
+        const institution = await Institution.findOneAndUpdate({_id: i_id}, {
+            verified: verified
+        })
+        res.status(200).json({ verified })
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
+
+const getInstitutions = async (req, res) => {
+    const institutions = await Institution.find({}).sort({updatedAt: -1})
+    res.status(200).json(institutions)
+}
+
+module.exports = { loginInstitution, signupInstitution, checkVerification, updateVerification, getInstitutions }
