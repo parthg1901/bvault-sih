@@ -10,7 +10,8 @@ import Signup from './pages/Signup'
 import Navbar from './components/Navbar/Navbar'
 import Certify from './pages/Certify'
 import Admin from './pages/Admin'
-
+import './App.css'
+//testing imports while styling
 
 function App() {
   const { user } = useAuthContext()

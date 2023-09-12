@@ -2,10 +2,11 @@ import { useState } from "react";
 import  QrReader from "react-qr-scanner"
 import Certificate from "../components/Certificate/Certificate";
 import { getBase64 } from "../utils/utils";
+import ScanComponent from "../UIcomponents/ScanComponent";
 
 const Home = () => {
     const [data, setData] = useState(null)
-    const [isScan, setIsScan] = useState(true)
+    const [isScan, setIsScan] = useState(false)
     const onQrScan = async (response, e, uploaded) => {
       if (uploaded) {
         getBase64(e.target.files[0],async (qr) => {
@@ -53,7 +54,7 @@ const Home = () => {
               />
             <input type="file" onChange={(e) => onQrScan(null,e, true)} />
           </>
-        ) : <button onClick={() => {setIsScan(true); setData(null)}}>Another Scan</button>}
+        ) : <ScanComponent onClick={() => {setIsScan(true); setData(null)}}/>}
         {data ? <Certificate {...data.certificate} /> : ""}
         {JSON.stringify(data)}
       </div>

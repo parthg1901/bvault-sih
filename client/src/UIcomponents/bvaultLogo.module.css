@@ -1,0 +1,14 @@
+.logo{
+    height: 9rem;
+    width: 9rem;
+    background-color: #3A405A;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 3px 4px 0px #00000040;
+}
+.svg{
+    width: 35px;
+    height: 35px;
+}
