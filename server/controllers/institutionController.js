@@ -19,12 +19,14 @@ const loginInstitution = async (req, res) => {
 }
 
 const signupInstitution = async (req, res) => {
-    const { name, email, password, proofImage } = req.body
+    const { name, email, password } = req.body
+    const proofImage = req.file
     console.log(name)
     console.log(password)
     try {
-        const institution = await Institution.signup(name, email, password, proofImage)
+        const institution = await Institution.signup(name, email, password, proofImage.filename)
         const token = createToken(institution._id)
+        console.log(institution)
         res.status(200).json({name, email, token, type: "institutions", verified: "no"})
     } catch (error) {
         res.status(400).json({error: error.message})

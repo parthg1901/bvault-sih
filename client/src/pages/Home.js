@@ -1,36 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import  QrReader from "react-qr-scanner"
 import Certificate from "../components/Certificate/Certificate";
 import { getBase64 } from "../utils/utils";
+import {Html5Qrcode} from "html5-qrcode"
+
 
 const Home = () => {
     const [data, setData] = useState(null)
     const [isScan, setIsScan] = useState(true)
     const onQrScan = async (response, e, uploaded) => {
+      let data;
       if (uploaded) {
-        getBase64(e.target.files[0],async (qr) => {
-          const res = await fetch(process.env.REACT_APP_SERVER+"/api/certificates/verify", {
-            method: "POST",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({qr})
-          })
-          const obj = await res.json()
-          if (!obj.msg) {
-            setIsScan(false)
-            setData(obj)
-          }
-        })
+        const resp = await new Html5Qrcode("file", "reader").scanFile(e.target.files[0])
+        data = await JSON.parse(resp)
+        console.log(data)
       }else if (response !== null) {
-        setIsScan(false)
-        const res = await fetch(process.env.REACT_APP_SERVER+"/api/certificates/verify", {
-          method: "POST",
-          headers: {'Content-Type': 'application/json'},
-          mode: "cors",
-          body: response.text
-        })
-        const obj = await res.json()
-        setData(obj)
+        data = await response.text
       }
+      setIsScan(false)
+      const res = await fetch(process.env.REACT_APP_SERVER+"/api/certificates/verify", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        mode: "cors",
+        body: JSON.stringify(data)
+      })
+      const obj = await res.json()
+      setData(obj)
     }
     return (
         <div>
@@ -51,11 +46,12 @@ const Home = () => {
               }}
               legacymode = "true"
               />
-            <input type="file" onChange={(e) => onQrScan(null,e, true)} />
+            <input type="file" id="file" onChange={(e) => onQrScan(null,e, true)} />
           </>
         ) : <button onClick={() => {setIsScan(true); setData(null)}}>Another Scan</button>}
         {data ? <Certificate {...data.certificate} /> : ""}
         {JSON.stringify(data)}
+
       </div>
     )
 }

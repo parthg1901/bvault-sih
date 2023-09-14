@@ -16,7 +16,7 @@ const Signup = () => {
   }
 
   return (
-    <form className="signup" onSubmit={handleSubmit}>
+    <form className="signup">
       <h3>Sign Up</h3>
       
       <label>Institution Name:</label>
@@ -43,10 +43,10 @@ const Signup = () => {
       <label>Upload Proof Document: (photo)</label>
       <input
         type="file"
-        onChange={(e) => getBase64(e.target.files[0], (img) => setProofImage(img))}
+        onChange={(e) => setProofImage(e.target.files[0])}
         required
       />
-      <button disabled={isLoading}>Sign up</button>
+      <button disabled={isLoading} onClick={handleSubmit}>Sign up</button>
       {error && <div className="error">{error}</div>}
     </form>
   )

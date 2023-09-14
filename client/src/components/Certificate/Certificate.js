@@ -1,6 +1,7 @@
 import styles from "./Certificate.module.css"
 import { toPng } from 'html-to-image';
 import { useRef } from "react";
+import { getBase64 } from "../../utils/utils";
 
 const Certificate = (props) => {
     const elementRef = useRef(null)
@@ -17,11 +18,16 @@ const Certificate = (props) => {
           console.log(err);
         });
     };
-  
+    const image = (img) => {
+        console.log(img)
+        if (img.name) return URL.createObjectURL(img, {autoRevoke: true});
+        else return process.env.REACT_APP_SERVER+"/api/images/"+img
+    }
     return (
-        <div className={styles.container} style={{backgroundImage: `url("${props.templateURL}")`}}>
+        <>
+        <div className={styles.container} style={{backgroundImage: `url("${image(props.templateURL)}")`}} ref={elementRef}>
             <div className={styles.header}>
-                <div className={styles.logo} style={{backgroundImage: `url("${props.logo}")`}} >
+                <div className={styles.logo} style={{backgroundImage: `url("${image(props.logo)}")`}} >
                 </div>
                 <p className={styles.title}>{props.title}</p>
             </div>
@@ -34,7 +40,7 @@ const Certificate = (props) => {
                     <img className={styles.qr} src={props.qr}/>
                 </div>
                 <div className={styles.right}>
-                    <img className={styles.signature} src={props.signatureURL}/>
+                    <img className={styles.signature} src={image(props.signatureURL)}/>
                     <div className={styles.signerDetails}>
                         <div className={styles.signatory}>{props.signerDetails.name}</div>
                         <div className={styles.designation}>{props.signerDetails.designation}</div>
@@ -42,6 +48,8 @@ const Certificate = (props) => {
                 </div>
             </div>
         </div>
+        <button onClick={downloadCertificate}>Download</button>
+        </>
     )
 }
 

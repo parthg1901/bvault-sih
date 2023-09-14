@@ -4,18 +4,18 @@ import Certificate from "../components/Certificate/Certificate"
 
 const Certify = () => {
     const [state, setState] = useState({
-        logo: null, 
+        logo: "", 
         name: "", 
         title: "", 
         description: "", 
         institution: "", 
-        templateURL: null, 
-        signatureURL: null, 
+        templateURL: "", 
+        signatureURL: "", 
         signerDetails: {
             name: "",
             designation: ""
         },
-        qr: null
+        qr: ""
     })
     const onUpdate = (key, value) => {
         setState({...state, [key]: value})

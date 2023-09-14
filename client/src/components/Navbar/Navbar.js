@@ -4,6 +4,8 @@ import { useAuthContext } from '../../hooks/useAuthContext'
 import { useState } from 'react'
 import { useAdminContext } from '../../hooks/useAdminContext'
 
+import styles from "./Navbar.module.css"
+
 const Navbar = (props) => {
   const [count, setCount] = useState(0)
   const { logout } = useLogout()
@@ -22,12 +24,12 @@ const Navbar = (props) => {
   }
   return (
     <header>
-      <div className="container">
+      <div className={styles.container}>
         {count === 4 ? <Navigate to={`/admin`} /> : "" }
-        <div onClick={updateCount}>
+        <div onClick={updateCount} className={styles.logo}>
           BVault
         </div>
-        <nav>
+        <nav className={styles.nave}>
           <Link to="/">
             Scan
           </Link>
@@ -35,8 +37,8 @@ const Navbar = (props) => {
           <div>
             <span>{user.name}</span>
             <span>{user.verified === "yes" ? "Verified" : user.verified === "no" ? "Not Verified" : "Rejected"}</span>
-            <button onClick={handleClick}>Log out</button>
             <Link to="/certify">Certify</Link>
+            <button onClick={handleClick}>Log out</button>
           </div>
           )}
           {!user && (admin  ? (

@@ -30,7 +30,7 @@ export const AuthContextProvider = ({ children }) => {
             body: JSON.stringify({email: user.email})
           })
           const status = await res.json()
-          user.verified = status
+          user.verified = status.verified
         }
         dispatch({type: "LOGIN", payload: {...user}})
         localStorage.setItem("user", JSON.stringify(user))

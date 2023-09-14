@@ -20,12 +20,11 @@ const Institution = (props) => {
     }
     return (
         <div>
-            {props.verified}
             <div>{props.name}</div>
             <div>{props.email}</div>
             <button onClick={showProof}>{proof ? "Close" : "Show Proof"}</button>
             {proof ? (
-                <img src={props.proofImage} alt="proof" />
+                <img src={process.env.REACT_APP_SERVER+"/api/images/"+props.proofImage} alt="proof" />
             ) : ""}
             <div>
                 {props.verified === "no" ? (
