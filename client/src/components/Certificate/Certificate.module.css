@@ -56,7 +56,7 @@
 .qr{
     height: 150px;
     width: 150px;
-    mix-blend-mode: darken;
+    image-rendering: pixelated;
 
 }
 .signature{

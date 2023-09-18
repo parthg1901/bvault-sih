@@ -18,7 +18,10 @@ const Certify = () => {
         qr: ""
     })
     const onUpdate = (key, value) => {
-        setState({...state, [key]: value})
+        if (value) {
+            setState({...state, [key]: value})
+            console.log(state)
+        }
     }
     return (
         <div>

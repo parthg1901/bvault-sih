@@ -15,7 +15,7 @@ const CertificateForm = (props) => {
         data.append("description", state.description)
         data.append("institution", user.name)
         data.append("signerName", state.signerDetails.name)
-        data.append("signerDesignation", state.signerDetails.signerDesignation)
+        data.append("signerDesignation", state.signerDetails.designation)
         data.append("templateURL", state.templateURL)
         data.append("signatureURL", state.signatureURL)
         data.append("logo", state.logo)
@@ -24,9 +24,12 @@ const CertificateForm = (props) => {
             method: "POST",
             body: data
           })
-          const obj = await res.json()
+          console.log(res)
+          const obj = await res.text()
+          console.log(obj)
           if (!obj.err) {
-            props.onUpdate("qr", obj.qr)
+            props.onUpdate("qr", obj)
+            props.onUpdate("institution", user.name)
           }
     }
     return (
@@ -37,12 +40,14 @@ const CertificateForm = (props) => {
           type="file"
           id="templateUrl"
           onChange={(e) => props.onUpdate("templateURL", e.target.files[0])}
+          required
         />
         <label htmlFor="logo">Institution-logo</label>
         <input
           type="file"
           id="logo"
           onChange={(e) => props.onUpdate("logo", e.target.files[0])}
+          required
         />
         <label htmlFor="signer">Signer-Name</label>
         <input
@@ -55,21 +60,26 @@ const CertificateForm = (props) => {
               designation: props.state.signerDetails.designation,
             })
           }
+          required
         />
         <label htmlFor="designation">Signer-designation</label>
         <input
+          required
           value={props.state.signerDetails.designation}
           type="text"
           id="designation"
-          onChange={(e) =>
+          onChange={(e) => {
+            console.log("here")
             props.onUpdate("signerDetails", {
               name: props.state.signerDetails.name,
               designation: e.target.value,
             })
           }
+        }
         />
         <label htmlFor="signUrl">signatureURL</label>
         <input
+          required
           type="file"
           id="signUrl"
           onChange={(e) => props.onUpdate("signatureURL", e.target.files[0])}
@@ -80,6 +90,7 @@ const CertificateForm = (props) => {
       <div className={styles.userDetails}>
         <label htmlFor="name">User-Name</label>
         <input
+          required
           value={props.state.name}
           type="text"
           id="name"
@@ -87,6 +98,7 @@ const CertificateForm = (props) => {
         />
         <label htmlFor="title">Certificate-Title</label>
         <input
+          required
           value={props.state.title}
           type="text"
           id="title"
@@ -94,6 +106,7 @@ const CertificateForm = (props) => {
         />
         <label htmlFor="description">Description</label>
         <textarea
+          required
           value={props.state.description}
           id="description"
           onChange={(e) => props.onUpdate("description", e.target.value)}

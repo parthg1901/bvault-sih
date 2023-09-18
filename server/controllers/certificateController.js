@@ -5,6 +5,8 @@ const QRCode = require("qrcode")
 
 const signCertificate = async (req, res, next) => {
     const {name, title, description, institution, signerName, signerDesignation} = await req.body;
+    console.log(signerDesignation)
+    console.log(institution)
     const { logo,  templateURL, signatureURL } = await req.files
     console.log(req.body)
     console.log(req.files)
@@ -13,14 +15,14 @@ const signCertificate = async (req, res, next) => {
     const signerFn = await signer()
     const message = `The ${title} has been issued to ${name}, by ${institution} on ${new Date().toLocaleDateString()}`
     signerFn.signMessage(ethers.solidityPackedKeccak256(["string"], [message])).then(async (signature) => {
-        const certificate = await Certificate.create({logo: logo[0].filename, name, title, description, institution: institution[1], templateURL: templateURL[0].filename, signatureURL :signatureURL[0].filename, signerDetails: {name: signerName, designation: signerDesignation}, qr: " "})
+        const certificate = await Certificate.create({logo: logo[0].filename, name, title, description, institution: institution, templateURL: templateURL[0].filename, signatureURL :signatureURL[0].filename, signerDetails: {name: signerName, designation: signerDesignation}, qr: " "})
         console.log(certificate._id)
         QRCode.toDataURL(JSON.stringify({message: message, signature: signature, c_id: certificate._id}))
             .then(async (url) => {
                 await Certificate.findOneAndUpdate({_id: certificate._id}, {
                     qr: url
                 })
-                await res.status(200).json({qr: url})
+                await res.status(200).send(url)
                 console.log(url)
             })
             .catch(err => {

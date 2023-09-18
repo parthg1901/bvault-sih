@@ -10,7 +10,7 @@ const Certificate = (props) => {
       toPng(elementRef.current, { cacheBust: false })
         .then((dataUrl) => {
           const link = document.createElement("a");
-          link.download = "certificate.png";
+          link.download = "certificate.jpg";
           link.href = dataUrl;
           link.click();
         })
@@ -18,6 +18,18 @@ const Certificate = (props) => {
           console.log(err);
         });
     };
+    const shareCertificate = async () => {
+        toPng(elementRef.current, { cacheBust: false })
+        .then((dataUrl) => {
+          const link = document.createElement("a");
+          console.log(dataUrl)
+          link.href = `mailto:?subject=Certificate Issued by ${props.institution} to ${props.name}&body='download and attach certificate'"`
+          link.click();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
     const image = (img) => {
         console.log(img)
         if (img.name) return URL.createObjectURL(img, {autoRevoke: true});
@@ -49,6 +61,8 @@ const Certificate = (props) => {
             </div>
         </div>
         <button onClick={downloadCertificate}>Download</button>
+        <button onClick={shareCertificate}>share</button>
+        {props.qr}
         </>
     )
 }

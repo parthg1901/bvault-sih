@@ -5,6 +5,8 @@ import { useState } from 'react'
 import { useAdminContext } from '../../hooks/useAdminContext'
 
 import styles from "./Navbar.module.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleXmark, faCircleCheck, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
 const Navbar = (props) => {
   const [count, setCount] = useState(0)
@@ -23,37 +25,41 @@ const Navbar = (props) => {
     }
   }
   return (
-    <header>
       <div className={styles.container}>
         {count === 4 ? <Navigate to={`/admin`} /> : "" }
         <div onClick={updateCount} className={styles.logo}>
-          BVault
+          <img src="B-Vault.png" alt="B-Vault"/>
         </div>
-        <nav className={styles.nave}>
+        <nav className={styles.nav}>
           <Link to="/">
             Scan
           </Link>
           {user && (
-          <div>
-            <span>{user.name}</span>
-            <span>{user.verified === "yes" ? "Verified" : user.verified === "no" ? "Not Verified" : "Rejected"}</span>
+          <>
             <Link to="/certify">Certify</Link>
-            <button onClick={handleClick}>Log out</button>
-          </div>
+            <div className={styles.user + " " + styles[user.verified]}>
+              <span>{user.name}</span>
+              {user.verified === "yes" ? (
+                <FontAwesomeIcon icon={faCircleCheck} color='rgb(0, 202, 0)'/>
+              ) : user.verified === "no" ? (
+                <FontAwesomeIcon icon={faCircleInfo} color='#FFBF00'/>
+              ) : user.verified === "rejected" ? (
+                <FontAwesomeIcon icon={faCircleXmark} color='rgb(255, 51, 51)'/>
+              ) : ""}
+            </div>
+          </>
           )}
           {!user && (admin  ? (
-            <div>
+            <>
               <Link to="/admin">Institutions</Link>
-            </div>
+            </>
           ) : (
-            <div>
+            <>
               <Link to="/login">Login</Link>
-              <Link to="/signup">Signup</Link>
-            </div>
+            </>
           ))}
         </nav>
       </div>
-    </header>
   )
 }
 
