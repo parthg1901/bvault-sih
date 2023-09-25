@@ -1,72 +1,106 @@
-@import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
-.container{
-    border: 2px solid black;
-    border-radius: 3px;
-    margin: auto;
-    height: 8.5in; /* Width for Letter size */
-    width: 11in; /* Height for Letter size */
-    /* background-color: antiquewhite; */
-    font-family: 'Tinos', serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-size: cover;
+.modal {
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  gap: 10px;
 }
 
-.header{
-    margin: 0 auto ;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.logo{
-    height: 150px;
-    width: 150px;
-    border-radius: 50%;
-    background-size: contain; 
-    background-position: center;
-    background-position: center center; 
-    background-repeat: no-repeat; 
-    mix-blend-mode: darken; /* removes background of image */
+.container {
+  margin: 0px auto;
+  height: 836px;
+  /* Width for Letter size */
+  width: 1155px;
+  /* Height for Letter size */
+  /* background-color: antiquewhite; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding: 40px;
 }
 
-.title{
-    font-size:3rem;
-    margin: 2px; 
+.scale {
+  transform: scale(0.6);
+  transform-origin: 0 center;
 }
-.main{
-    display: flex;
-    flex-direction: column;
-    font-size: 2rem;
-    align-items: center;
-}
-.description{
-    text-align: center;
-    margin: 2px 2px;
-}
-.name{
-    font-weight: bold;
-}
-.footer{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    margin-bottom: 1rem;
-}
-.qr{
-    height: 150px;
-    width: 150px;
-    image-rendering: pixelated;
 
+@media screen and (max-width: 600px) {
+  .scale {
+    transform: scale(0.4);
+    transform-origin: 0 center;
+  }
 }
-.signature{
-    mix-blend-mode: darken;
-    height: 100px;
+
+.header {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.signatory,.designation{
-    text-align: center;
-    font-size: 1.4rem;
+
+.logo {
+  height: 150px;
+  width: 150px;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  mix-blend-mode: darken;
+  /* removes background of image */
 }
-.signatory{
-    font-weight: bold;
+
+.title {
+  font-size: 3rem;
+  margin: 2px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
+  align-items: center;
+}
+
+.description {
+  text-align: center;
+  width: 70%;
+  padding: 7px 2px;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.qr {
+  height: 100px;
+  width: 100px;
+  image-rendering: pixelated;
+}
+
+.signature {
+  mix-blend-mode: darken;
+  height: 100px;
+}
+
+.signatory,
+.designation {
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+.signatory {
+  font-weight: bold;
 }

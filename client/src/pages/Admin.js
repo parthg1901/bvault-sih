@@ -3,24 +3,25 @@ import { Navigate } from "react-router-dom";
 
 import Institution from "../components/Institution/Institution";
 import { useAdminContext } from "../hooks/useAdminContext";
+import styles from "../styles/Admin.module.css"
 
 const Admin = () => {
     const [address, setAddress] = useState(null)
     const [institutions, setInstitutions] = useState([])
-    const {admin, dispatch} = useAdminContext()
-    
+    const { admin, dispatch } = useAdminContext()
+
     const addMetamask = useCallback(() => {
         if (window.ethereum) {
-      
-          window.ethereum
-            .request({ method: "eth_requestAccounts" })
-            .then((res) => {
-                setAddress(res[0]); 
-                localStorage.setItem("admin", "yes"); 
-                dispatch({type: "ADMIN"})
-            });
+
+            window.ethereum
+                .request({ method: "eth_requestAccounts" })
+                .then((res) => {
+                    setAddress(res[0]);
+                    localStorage.setItem("admin", "yes");
+                    dispatch({ type: "ADMIN" })
+                });
         } else {
-          alert("install metamask extension!!");
+            alert("install metamask extension!!");
         }
     }, [dispatch]);
     useEffect(() => {
@@ -32,9 +33,9 @@ const Admin = () => {
     useEffect(() => {
         const fetchData = async () => {
             if (address === process.env.REACT_APP_OWNER.toLowerCase()) {
-                const res = await fetch(process.env.REACT_APP_SERVER+"/api/institutions/get", {
+                const res = await fetch(process.env.REACT_APP_SERVER + "/api/institutions/get", {
                     method: "GET",
-                    headers: {'Content-Type': 'application/json'},
+                    headers: { 'Content-Type': 'application/json' },
                     mode: "cors",
                 })
                 const obj = await res.json()
@@ -56,25 +57,32 @@ const Admin = () => {
     }
     console.log(institutions)
     return (
-        <>
-            {!address ? (
-                <>
-                    <div>Admin Login</div>
-                    <button onClick={addMetamask}>Connect to Metamask</button>
-                </>
-            ) : address === process.env.REACT_APP_OWNER.toLowerCase() ? (
-                <>
-                {
-                    institutions.map(institution => (
-                        <div  key={institution._id}>
-                            <Institution {...institution} updateVerification={updateVerification}/>
-                        </div>
-                    ))
-                }
-                </>
-            ) : <Navigate to="/"/>}
-        </>
-    )
+      <div className={styles.container}>
+        {!address ? (
+          <>
+            <div className={styles.title}>Admin Login</div>
+            <p>**This page can only be accessed through government computers which have the admin metamask account**</p>
+            <button className={styles.connect} onClick={addMetamask}>
+              <img src="/metamask.svg" />
+              Connect to Metamask
+            </button>
+          </>
+        ) : address === process.env.REACT_APP_OWNER.toLowerCase() ? (
+          <div className={styles.cards}>
+            {institutions.map((institution) => (
+              <div key={institution._id}>
+                <Institution
+                  {...institution}
+                  updateVerification={updateVerification}
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <Navigate to="/" />
+        )}
+      </div>
+    );
 }
 
 export default Admin

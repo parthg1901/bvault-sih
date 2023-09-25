@@ -1,0 +1,46 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #002879 -24.7%, #396fdb 85.08%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.connect {
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(90deg, #002879 -24.7%, #396fdb 85.08%);
+  padding: 5px 10px;
+  color: white;
+  border-radius: 5px;
+  overflow: hidden;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.connect img {
+  height: 30px;
+  width: 30px;
+}
+
+.cards {
+  padding: 20px 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 30px;
+  overflow: scroll;
+  height: 80vh;
+  justify-items: stretch;
+  width: 70%;
+}

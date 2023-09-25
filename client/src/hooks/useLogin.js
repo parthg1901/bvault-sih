@@ -12,7 +12,7 @@ export const useLogin = () => {
 
     const response = await fetch(`${process.env.REACT_APP_SERVER}/api/${type}/login`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
     })
     const json = await response.json()
@@ -25,7 +25,7 @@ export const useLogin = () => {
       // save the user to local storage
       localStorage.setItem('user', JSON.stringify(json))
       // update the auth context
-      dispatch({type: 'LOGIN', payload: {...json}})
+      dispatch({ type: 'LOGIN', payload: { ...json } })
       // update loading state
       setIsLoading(false)
     }

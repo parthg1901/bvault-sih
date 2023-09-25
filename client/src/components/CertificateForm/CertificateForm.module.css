@@ -1,0 +1,105 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 20px auto;
+  padding: 20px;
+  min-height: 80vh;
+  max-width: 600px;
+}
+
+@media screen and (min-width: 600px) {
+  .form {
+    border: 0.5px solid #00000066;
+    border-radius: 20px;
+  }
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  background: linear-gradient(90deg, #002879 -24.7%, #396fdb 85.08%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.inp {
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 0.625rem;
+  border: 0.5px solid #00000066;
+  padding: 0.5rem;
+  color: #00000080;
+  font-size: 15px;
+}
+
+.form ::file-selector-button {
+  font-size: 13px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #376fdb;
+  box-shadow: 0px 0px 5px 0px #00000080;
+  color: white;
+  font-weight: 600;
+  margin-right: 25vw;
+}
+
+.upload > label {
+  font-weight: 500;
+  font-size: 14px;
+  color: #00000080;
+}
+
+.form ::placeholder {
+  color: black;
+  font-size: 14px;
+  font-weight: 500;
+  color: #00000066;
+  width: 100%;
+}
+
+.form input[type="text"] {
+  border: none;
+  border-bottom: 1px solid #00000066;
+  width: 100%;
+  background: none;
+}
+
+.form [type="text"]:focus {
+  border: none;
+}
+
+.form textarea {
+  overflow: hidden;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #00000066;
+  background: none;
+}
+
+.submit_btn,
+.previewButton {
+  padding: 10px 12px;
+  width: 100%;
+  font-size: 16px;
+  border: none;
+  background-color: #376fdb;
+  box-shadow: 0px 0px 5px 0px #00000080;
+  color: white;
+  font-weight: 600;
+  border-radius: 0.5rem;
+}
+
+.previewButton {
+  color: #376fdb;
+  background-color: white;
+}

@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.certificate {
+  height: calc(836px*0.33);
+  width: calc(1155px*0.33);
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.qr {
+  height: 50px;
+  width: 50px;
+  position: relative;
+  top: 180px;
+  left: 100px;
+  image-rendering: pixelated;
+}
+
+.qrData {
+  width: 89px;
+  height: 89px;
+  border-radius: 10px;
+  image-rendering: pixelated;
+}
+
+.issueData {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionBtn {
+  width: 156px;
+  height: 45px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(55, 111, 219, 1);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 20px;
+  color: rgba(255, 255, 255, 1);
+  margin: 1rem 1rem;
+}
