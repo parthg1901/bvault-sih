@@ -35,7 +35,7 @@ const Navbar = (props) => {
         <img src="B-Vault.png" alt="B-Vault" />
       </div>
       <nav className={styles.nav}>
-        <Link to="/">Scan</Link>
+        <Link to="/scan">Scan</Link>
         {user && (
           <>
             <Link to="/certify">Certify</Link>
