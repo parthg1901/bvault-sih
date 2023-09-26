@@ -9,6 +9,7 @@ import Signup from "./pages/Signup";
 import Navbar from "./components/Navbar/Navbar";
 import Certify from "./pages/Certify";
 import Admin from "./pages/Admin";
+import Intro from "./pages/Intro";
 
 // import helia from "./utils/helia"
 import { useEffect, useState } from "react";
@@ -45,7 +46,9 @@ function App() {
         )}
         <div className="pages">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Intro />} />
+            
+            <Route path="/scan" element={<Home />} />
             {!user && <Route path="/admin" element={<Admin />} />}
             {!admin ? (
               <>
